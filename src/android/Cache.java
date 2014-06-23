@@ -44,20 +44,20 @@ public class Cache extends CordovaPlugin
 
 	}
 
-    @Override
-    public boolean execute (String action, JSONArray args, CallbackContext callbackContext) throws JSONException
-    {
+	@Override
+	public boolean execute (String action, JSONArray args, CallbackContext callbackContext) throws JSONException
+	{
 		/*try
 		{
 		*/
 			if( action.equals("clear") )
 			{
 				Log.v(LOG_TAG,"Cordova Android Cache.clear() called.");
-		        this.callbackContext = callbackContext;
+				this.callbackContext = callbackContext;
 				
 				final Cache self = this;
-		        cordova.getActivity().runOnUiThread( new Runnable() {
-		            public void run()
+				cordova.getActivity().runOnUiThread( new Runnable() {
+					public void run()
 					{
 						try
 						{
@@ -79,8 +79,8 @@ public class Cache extends CordovaPlugin
 							result.setKeepCallback(false); 
 							self.callbackContext.sendPluginResult(result);
 						}
-		            }
-		        });
+					}
+				});
 				return true;
 			}
 			return false;
@@ -93,5 +93,5 @@ public class Cache extends CordovaPlugin
 			return false;
 		}
 		*/
-    }
+	}
 }
