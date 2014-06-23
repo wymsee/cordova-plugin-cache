@@ -18,7 +18,7 @@
  SOFTWARE.
 */
 
-package at.modalog.cordova.plugin.cache;
+package com.sharinglabs.cordova.plugin.cache;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
