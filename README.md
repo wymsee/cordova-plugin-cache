@@ -8,7 +8,7 @@ There is one method:
 
 * clear(successCallback, errorCallback)
 
-Installation
+Manual Installation
 ======
 You may use phonegap CLI as follows:
 
@@ -17,6 +17,13 @@ You may use phonegap CLI as follows:
 [phonegap] adding the plugin: https://github.com/moderna/cordova-plugin-cache.git
 [phonegap] successfully added the plugin
 </pre>
+
+Using Phonegap Build
+======
+Add the following to your `config.xml` file:
+```xml
+<gap:plugin name="com.sharinglabs.cordova.plugin.cache" />
+```
 
 Usage
 ====
