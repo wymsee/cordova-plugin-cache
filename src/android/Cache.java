@@ -104,6 +104,7 @@ public class Cache extends CordovaPlugin
 	private void clearApplicationData() {
 		File cache = this.cordova.getActivity().getCacheDir();
 		File appDir = new File(cache.getParent());
+		Log.i(LOG_TAG, "Absolute path: " + appDir.getAbsolutePath());
 		if (appDir.exists()) {
 			String[] children = appDir.list();
 			for (String s : children) {
@@ -116,6 +117,7 @@ public class Cache extends CordovaPlugin
 	}
 
 	private static boolean deleteDir(File dir) {
+		Log.i(LOG_TAG, "Deleting: " + dir.getAbsolutePath());
 		if (dir != null && dir.isDirectory()) {
 			String[] children = dir.list();
 			for (int i = 0; i < children.length; i++) {
