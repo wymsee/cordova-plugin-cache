@@ -27,6 +27,8 @@ import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.File;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.util.Log;
