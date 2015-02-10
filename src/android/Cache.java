@@ -64,6 +64,9 @@ public class Cache extends CordovaPlugin
 							// clear the cache
 							self.webView.clearCache(true);
 							
+							// clear the data
+							self.clearApplicationData();
+							
 							// send success result to cordova
 							PluginResult result = new PluginResult(PluginResult.Status.OK);
 							result.setKeepCallback(false); 
@@ -93,5 +96,34 @@ public class Cache extends CordovaPlugin
 			return false;
 		}
 		*/
+	}
+
+	// http://www.hrupin.com/2011/11/how-to-clear-user-data-in-your-android-application-programmatically
+	private void clearApplicationData() {
+		File cache = this.cordova.getActivity().getCacheDir();
+		File appDir = new File(cache.getParent());
+		if (appDir.exists()) {
+			String[] children = appDir.list();
+			for (String s : children) {
+				if (!s.equals("lib")) {
+					deleteDir(new File(appDir, s));
+					Log.i(LOG_TAG, "File /data/data/APP_PACKAGE/" + s + " DELETED");
+				}
+			}
+		}
+	}
+
+	private static boolean deleteDir(File dir) {
+		if (dir != null && dir.isDirectory()) {
+			String[] children = dir.list();
+			for (int i = 0; i < children.length; i++) {
+				boolean success = deleteDir(new File(dir, children[i]));
+				if (!success) {
+					return false;
+				}
+			}
+		}
+
+		return dir.delete();
 	}
 }
