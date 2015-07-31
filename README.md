@@ -4,26 +4,18 @@ Cache
 This is a WebView cache plugin for Phonegap 3.3.0 / Cordova 3.3.1 supporting Android (>=2.3.3) and iOS(>=6.0).
 It allows to clear the cordova webview cache.
 
-There is one method:
+There are two methods:
 
 * clear(successCallback, errorCallback)
+* cleartemp()
 
 Manual Installation
 ======
 You may use phonegap CLI as follows:
 
 <pre>
-➜ phonegap local plugin add https://github.com/moderna/cordova-plugin-cache.git
-[phonegap] adding the plugin: https://github.com/moderna/cordova-plugin-cache.git
-[phonegap] successfully added the plugin
+➜ cordova plugin add https://github.com/tiltshiftfocus/cordova-plugin-cache.git
 </pre>
-
-Using Phonegap Build
-======
-Add the following to your `config.xml` file:
-```xml
-<gap:plugin name="com.sharinglabs.cordova.plugin.cache" />
-```
 
 Usage
 ====
@@ -40,5 +32,6 @@ function onDeviceReady()
         }
 
         window.cache.clear( success, error );
+        window.cache.cleartemp(); // 
 }
 ```
