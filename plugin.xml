@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.sharinglabs.cordova.plugin.clearCache"
-    version="1.0.3">
+    id="com.tiltshiftfocus.cordova.plugin.clearCache"
+    version="1.0.4">
 
     <name>Clear Cache</name>
-    <repo>https://github.com/Sharinglabs/cordova-plugin-cache.git</repo>
+    <repo>https://github.com/tiltshiftfocus/cordova-plugin-cache.git</repo>
     <keywords>webview,cache,clear,android,ios</keywords>
     <license>MIT</license>
     <author>Modern Alchemists OG</author>
