@@ -31,6 +31,7 @@
 }
 
 -(void) clear: (CDVInvokedUrlCommand*)command;
+-(void) cleartemp: (CDVInvokedUrlCommand*)command;
 
 // retain command for async repsonses
 @property (nonatomic, strong) CDVInvokedUrlCommand* command;

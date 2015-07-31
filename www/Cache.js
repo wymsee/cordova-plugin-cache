@@ -10,7 +10,11 @@ var Cache =
     clear : function( success, error )
     {
         exec(success, error, "Cache", "clear", [])
-    }
+    },
+	cleartemp: function(success,error)
+	{
+		exec(success, error, "Cache", "cleartemp", [])
+	}
 }
 
 module.exports = Cache;
