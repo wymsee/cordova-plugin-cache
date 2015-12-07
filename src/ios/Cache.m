@@ -123,14 +123,14 @@
 
 - (void)onPause
 {
-    [self.clear command:object:nil];
-    [self.cleartemp command:object:nil];
+    [self clear];
+    [self cleartemp];
 }
 
 - (void)onResume
 {
-    [self.clear command:object:nil];
-    [self.cleartemp command:object:nil];
+    [self clear];
+    [self cleartemp];
 }
 
 - (void)pluginInitialize
