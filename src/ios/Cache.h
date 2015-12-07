@@ -1,5 +1,6 @@
 /*
- Copyright © 2014-2015 Andrew Stevens <andy@andxyz.com>, Modern Alchemits <office@modalog.at>
+ Copyright © 2014-2015 Andrew Stevens <andy@andxyz.com>, Modern Alchemits
+ <office@modalog.at>
 
  Licensed under MIT.
 
@@ -27,11 +28,9 @@
  SOFTWARE.
 */
 
-#import <Foundation/Foundation.h>
-
-#import <Cordova/CDVPlugin.h>
-
 #import "AppDelegate.h"
+#import <Cordova/CDVPlugin.h>
+#import <Foundation/Foundation.h>
 
 @interface Cache : CDVPlugin {
 }

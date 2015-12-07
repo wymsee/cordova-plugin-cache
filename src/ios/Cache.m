@@ -37,16 +37,12 @@
 - (void)clear:(CDVInvokedUrlCommand *)command {
   NSLog(@"Cordova iOS Cache.clear() called.");
 
-  self.command = command;
-
   // Arguments arenot used at the moment.
   // NSArray* arguments = command.arguments;
 
-  [self.commandDelegate runInBackground:^ {
-
+  [self.commandDelegate runInBackground:^{
     // clear cache
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
-
   }];
 
   [self success];
@@ -58,16 +54,16 @@
   NSError *err = nil;
   BOOL hasErrors = NO;
 
-  // clear contents of NSTemporaryDirectory
+  // setup loop vars
   NSString *tempDirectoryPath = NSTemporaryDirectory();
   NSDirectoryEnumerator *directoryEnumerator =
-    [fileMgr enumeratorAtPath:tempDirectoryPath];
+      [fileMgr enumeratorAtPath:tempDirectoryPath];
   NSString *fileName = nil;
   BOOL result;
-
+  // clear contents of NSTemporaryDirectory
   while ((fileName = [directoryEnumerator nextObject])) {
     NSString *filePath =
-      [tempDirectoryPath stringByAppendingPathComponent:fileName];
+        [tempDirectoryPath stringByAppendingPathComponent:fileName];
     result = [fileMgr removeItemAtPath:filePath error:&err];
     if (!result && err) {
       NSLog(@"Failed to delete: %@ (error: %@)", filePath, err);
@@ -75,47 +71,48 @@
     }
   }
 
+  // send result
   CDVPluginResult *pluginResult;
   if (hasErrors) {
     pluginResult = [CDVPluginResult
-                    resultWithStatus:CDVCommandStatus_IO_EXCEPTION
-                    messageAsString:@"One or more files failed to be deleted."];
+        resultWithStatus:CDVCommandStatus_IO_EXCEPTION
+         messageAsString:@"One or more files failed to be deleted."];
   } else {
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
   }
   [self.commandDelegate sendPluginResult:pluginResult
-   callbackId:command.callbackId];
+                              callbackId:command.callbackId];
 }
 
 - (void)success {
   NSString *resultMsg = @"Cordova iOS webview cache cleared.";
   NSLog(@"%@", resultMsg);
 
-  // create acordova result
+  // create cordova result
   CDVPluginResult *pluginResult = [CDVPluginResult
-                                   resultWithStatus:CDVCommandStatus_OK
-                                   messageAsString:[resultMsg stringByAddingPercentEscapesUsingEncoding:
-                                       NSUTF8StringEncoding]];
+      resultWithStatus:CDVCommandStatus_OK
+       messageAsString:[resultMsg stringByAddingPercentEscapesUsingEncoding:
+                                      NSUTF8StringEncoding]];
 
   // send cordova result
   [self.commandDelegate sendPluginResult:pluginResult
-   callbackId:command.callbackId];
+                              callbackId:command.callbackId];
 }
 
 - (void)error:(NSString *)message {
   NSString *resultMsg = [NSString
-                         stringWithFormat:@"Error while clearing webview cache (%@).", message];
+      stringWithFormat:@"Error while clearing webview cache (%@).", message];
   NSLog(@"%@", resultMsg);
 
   // create cordova result
   CDVPluginResult *pluginResult = [CDVPluginResult
-                                   resultWithStatus:CDVCommandStatus_ERROR
-                                   messageAsString:[resultMsg stringByAddingPercentEscapesUsingEncoding:
-                                       NSUTF8StringEncoding]];
+      resultWithStatus:CDVCommandStatus_ERROR
+       messageAsString:[resultMsg stringByAddingPercentEscapesUsingEncoding:
+                                      NSUTF8StringEncoding]];
 
   // send cordova result
   [self.commandDelegate sendPluginResult:pluginResult
-   callbackId:command.callbackId];
+                              callbackId:command.callbackId];
 }
 
 @end
