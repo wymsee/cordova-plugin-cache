@@ -37,6 +37,8 @@
 - (void)clear:(CDVInvokedUrlCommand *)command {
   NSLog(@"Cordova iOS Cache.clear() called.");
 
+  _callbackId = command.callbackId;
+
   // Arguments arenot used at the moment.
   // NSArray* arguments = command.arguments;
 
@@ -49,6 +51,10 @@
 }
 
 - (void)cleartemp:(CDVInvokedUrlCommand *)command {
+  NSLog(@"Cordova iOS Cache.cleartemp() called.");
+
+  _callbackId = command.callbackId;
+
   // empty the tmp directory
   NSFileManager *fileMgr = [[NSFileManager alloc] init];
   NSError *err = nil;
@@ -81,7 +87,7 @@
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
   }
   [self.commandDelegate sendPluginResult:pluginResult
-                              callbackId:command.callbackId];
+                              callbackId:_callbackId];
 }
 
 - (void)success {
@@ -96,7 +102,7 @@
 
   // send cordova result
   [self.commandDelegate sendPluginResult:pluginResult
-                              callbackId:command.callbackId];
+                              callbackId:_callbackId];
 }
 
 - (void)error:(NSString *)message {
@@ -112,7 +118,7 @@
 
   // send cordova result
   [self.commandDelegate sendPluginResult:pluginResult
-                              callbackId:command.callbackId];
+                              callbackId:_callbackId];
 }
 
 @end
