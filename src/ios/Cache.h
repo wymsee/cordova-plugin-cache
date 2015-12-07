@@ -1,6 +1,6 @@
 /*
- Copyright © 2014-2015 Andrew Stevens <andy@andxyz.com>, Modern Alchemits
- <office@modalog.at>
+ Copyright © 2014-2015 Andrew Stevens <andy@andxyz.com>,
+ Modern Alchemits <office@modalog.at>
 
  Licensed under MIT.
 

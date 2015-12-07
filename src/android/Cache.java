@@ -1,7 +1,6 @@
 /*
- Copyright 2014 Modern Alchemists OG
-
- Licensed under MIT.
+ The MIT License (MIT)
+ Copyright © 2014-2015 Andrew Stevens <andy@andxyz.com>, Modern Alchemits <office@modalog.at>
 
  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -18,7 +17,7 @@
  SOFTWARE.
 */
 
-package com.sharinglabs.cordova.plugin.cache;
+package org.apache.cordova.plugin.cache;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
