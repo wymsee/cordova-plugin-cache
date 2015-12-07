@@ -121,4 +121,24 @@
                               callbackId:_callbackId];
 }
 
+- (void)onPause
+{
+    [self.clear command:object:nil];
+    [self.cleartemp command:object:nil];
+}
+
+- (void)onResume
+{
+    [self.clear command:object:nil];
+    [self.cleartemp command:object:nil];
+}
+
+- (void)pluginInitialize
+{
+    if (UIApplicationDidEnterBackgroundNotification && UIApplicationWillEnterForegroundNotification) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPause) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onResume) name:UIApplicationWillEnterForegroundNotification object:nil];
+    }
+}
+
 @end

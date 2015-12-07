@@ -33,6 +33,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Cache : CDVPlugin {
+  NSString* _callbackId;
 }
 
 - (void)clear:(CDVInvokedUrlCommand *)command;
