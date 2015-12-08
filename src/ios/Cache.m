@@ -35,7 +35,7 @@
 @synthesize command;
 
 - (void)clear:(CDVInvokedUrlCommand *)command {
-  NSLog(@"Cordova iOS Cache.clear() called.");
+  NSLog(@"Cordova Cache Plugin method clear() called.");
 
   _callbackId = command.callbackId;
 
@@ -47,20 +47,19 @@
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
   }];
 
-  [self success];
+  [self success:@"NSURLCache"];
 }
 
 - (void)cleartemp:(CDVInvokedUrlCommand *)command {
-  NSLog(@"Cordova iOS Cache.cleartemp() called.");
+  NSLog(@"Cordova Cache Plugin method cleartemp() called.");
 
   _callbackId = command.callbackId;
 
   // empty the tmp directory
   NSFileManager *fileMgr = [[NSFileManager alloc] init];
+  // setup loop vars
   NSError *err = nil;
   BOOL hasErrors = NO;
-
-  // setup loop vars
   NSString *tempDirectoryPath = NSTemporaryDirectory();
   NSDirectoryEnumerator *directoryEnumerator =
       [fileMgr enumeratorAtPath:tempDirectoryPath];
@@ -80,18 +79,16 @@
   // send result
   CDVPluginResult *pluginResult;
   if (hasErrors) {
-    pluginResult = [CDVPluginResult
-        resultWithStatus:CDVCommandStatus_IO_EXCEPTION
-         messageAsString:@"One or more files failed to be deleted."];
+    [self error:@"NSTemporaryDirectory"]
   } else {
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [self success:@"NSTemporaryDirectory"]
   }
-  [self.commandDelegate sendPluginResult:pluginResult
-                              callbackId:_callbackId];
 }
 
-- (void)success {
-  NSString *resultMsg = @"Cordova iOS webview cache cleared.";
+- (void)success(NSString *)message {
+  NSString *resultMsg = [NSString
+      stringWithFormat:@"Cordova Cache Plugin cleared the cache: (%@).",
+                       message];
   NSLog(@"%@", resultMsg);
 
   // create cordova result
@@ -101,13 +98,12 @@
                                       NSUTF8StringEncoding]];
 
   // send cordova result
-  [self.commandDelegate sendPluginResult:pluginResult
-                              callbackId:_callbackId];
+  [self.commandDelegate sendPluginResult:pluginResult callbackId:_callbackId];
 }
 
 - (void)error:(NSString *)message {
   NSString *resultMsg = [NSString
-      stringWithFormat:@"Error while clearing webview cache (%@).", message];
+      stringWithFormat:@"Cordova Cache Plugin error clearing: (%@).", message];
   NSLog(@"%@", resultMsg);
 
   // create cordova result
@@ -117,30 +113,35 @@
                                       NSUTF8StringEncoding]];
 
   // send cordova result
-  [self.commandDelegate sendPluginResult:pluginResult
-                              callbackId:_callbackId];
+  [self.commandDelegate sendPluginResult:pluginResult callbackId:_callbackId];
 }
 
-- (void)onPause
-{
-    NSLog(@"Cordova iOS Cache onPause() called");
-    // [self clear];
-    // [self cleartemp];
+- (void)onPause {
+  NSLog(@"Cordova Cache Plugin onPause() fired");
+  // [self clear];
+  // [self cleartemp];
 }
 
-- (void)onResume
-{
-    NSLog(@"Cordova iOS Cache onResume() called");
-    // [self clear];
-    // [self cleartemp];
+- (void)onResume {
+  NSLog(@"Cordova Cache Plugin onResume() fired");
+  // [self clear];
+  // [self cleartemp];
 }
 
-- (void)pluginInitialize
-{
-    if (UIApplicationDidEnterBackgroundNotification && UIApplicationWillEnterForegroundNotification) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPause) name:UIApplicationDidEnterBackgroundNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onResume) name:UIApplicationWillEnterForegroundNotification object:nil];
-    }
+- (void)pluginInitialize {
+  if (UIApplicationDidEnterBackgroundNotification &&
+      UIApplicationWillEnterForegroundNotification) {
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+           selector:@selector(onPause)
+               name:UIApplicationDidEnterBackgroundNotification
+             object:nil];
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+           selector:@selector(onResume)
+               name:UIApplicationWillEnterForegroundNotification
+             object:nil];
+  }
 }
 
 @end
