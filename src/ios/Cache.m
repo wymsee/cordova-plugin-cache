@@ -123,12 +123,14 @@
 
 - (void)onPause
 {
+    NSLog(@"Cordova iOS Cache onPause() called");
     // [self clear];
     // [self cleartemp];
 }
 
 - (void)onResume
 {
+    NSLog(@"Cordova iOS Cache onResume() called");
     // [self clear];
     // [self cleartemp];
 }
