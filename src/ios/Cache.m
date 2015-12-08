@@ -30,7 +30,7 @@
 
 	_callbackId = command.callbackId;
 
-	// Arguments arenot used at the moment.
+	// Plugin arguments are not used at the moment.
 	// NSArray* arguments = command.arguments;
 
 	[self.commandDelegate runInBackground:^{
@@ -67,7 +67,6 @@
 	}
 
 	// send result
-	CDVPluginResult *pluginResult;
 	if (hasErrors) {
 		[self error:@"NSTemporaryDirectory"];
 	}
