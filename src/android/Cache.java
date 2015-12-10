@@ -1,7 +1,6 @@
 /*
- Copyright 2014 Modern Alchemists OG
-
- Licensed under MIT.
+ The MIT License (MIT)
+ Copyright © 2014-2015 Andrew Stevens <andy@andxyz.com>, Modern Alchemits <office@modalog.at>
 
  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -18,7 +17,7 @@
  SOFTWARE.
 */
 
-package com.sharinglabs.cordova.plugin.cache;
+package org.apache.cordova.plugin.cache;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -34,8 +33,7 @@ import android.app.Activity;
 import android.util.Log;
 
 @TargetApi(19)
-public class Cache extends CordovaPlugin
-{
+public class Cache extends CordovaPlugin {
 	private static final String LOG_TAG = "Cache";
 	private CallbackContext callbackContext;
 
@@ -47,55 +45,49 @@ public class Cache extends CordovaPlugin
 	}
 
 	@Override
-	public boolean execute (String action, JSONArray args, CallbackContext callbackContext) throws JSONException
-	{
+	public boolean execute (String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		/*try
 		{
 		*/
-			if( action.equals("clear") )
-			{
-				Log.v(LOG_TAG,"Cordova Android Cache.clear() called.");
-				this.callbackContext = callbackContext;
-				
-				final Cache self = this;
-				cordova.getActivity().runOnUiThread( new Runnable() {
-					public void run()
-					{
-						try
-						{
-							// clear the cache
-							self.webView.clearCache(true);
-							
-							// clear the data
-							self.clearApplicationData();
-							
-							// send success result to cordova
-							PluginResult result = new PluginResult(PluginResult.Status.OK);
-							result.setKeepCallback(false); 
-							self.callbackContext.sendPluginResult(result);
-						}
-						catch( Exception e )
-						{
-							String msg = "Error while clearing webview cache.";
-							Log.e(LOG_TAG, msg );
-							
-							// return error answer to cordova
-							PluginResult result = new PluginResult(PluginResult.Status.ERROR, msg);
-							result.setKeepCallback(false); 
-							self.callbackContext.sendPluginResult(result);
-						}
+		if ( action.equals("clear") ) {
+			Log.v(LOG_TAG, "Cordova Android Cache.clear() called.");
+			this.callbackContext = callbackContext;
+
+			final Cache self = this;
+			cordova.getActivity().runOnUiThread( new Runnable() {
+				public void run() {
+					try {
+						// clear the cache
+						self.webView.clearCache(true);
+
+						// clear the data
+						self.clearApplicationData();
+
+						// send success result to cordova
+						PluginResult result = new PluginResult(PluginResult.Status.OK);
+						result.setKeepCallback(false);
+						self.callbackContext.sendPluginResult(result);
+					} catch ( Exception e ) {
+						String msg = "Error while clearing webview cache.";
+						Log.e(LOG_TAG, msg );
+
+						// return error answer to cordova
+						PluginResult result = new PluginResult(PluginResult.Status.ERROR, msg);
+						result.setKeepCallback(false);
+						self.callbackContext.sendPluginResult(result);
 					}
-				});
-				return true;
-			}
-			return false;
-			/*
+				}
+			});
+			return true;
+		}
+		return false;
+		/*
 		}
 		catch (JSONException e)
 		{
-			// TODO: signal JSON problem to JS
-			//callbackContext.error("Problem with JSON");
-			return false;
+		// TODO: signal JSON problem to JS
+		//callbackContext.error("Problem with JSON");
+		return false;
 		}
 		*/
 	}
