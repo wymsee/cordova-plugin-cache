@@ -129,6 +129,16 @@
 							     name:UIApplicationWillEnterForegroundNotification
 							   object:nil];
 	}
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMemoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];		
+}
+
+- (void)onMemoryWarning:(NSNotification*)notification
+{
+    NSLog(@"Cache.m: Got onMemoryWarning notification");
+	[self.commandDelegate runInBackground:^{
+	  // clear cache
+	  [[NSURLCache sharedURLCache] removeAllCachedResponses];
+	}];
 }
 
 @end
